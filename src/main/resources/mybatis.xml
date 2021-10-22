@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--控制mybatis全局行为的-->
+    <settings>
+        <!--日志输出到控制台-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <!--设置别名-->
+    <typeAliases>
+        <package name="com.cdut.entity"/>
+    </typeAliases>
+    <!--环境配置：数据库的连接信息-->
+    <!--使用druid连接池 不用配置这个-->
+<!--    <environments default="development">-->
+<!--        &lt;!&ndash;environment 一个数据库信息的配置&ndash;&gt;-->
+<!--        <environment id="development">-->
+<!--            <transactionManager type="JDBC"></transactionManager>-->
+<!--            <dataSource type="POOLED">-->
+<!--                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>-->
+<!--                <property name="url" value="jdbc:mysql://localhost:3306/mybatis_test?serverTimezone=GMT"/>-->
+<!--                <property name="username" value="root"/>-->
+<!--                <property name="password" value="z992448694"/>-->
+<!--            </dataSource>-->
+<!--        </environment>-->
+<!--    </environments>-->
+    <!--mapper.xml的位置-->
+    <mappers>
+<!--        <mapper resource="com/cdut/Dao/StudentDao.xml"/>-->
+        <package name="com.cdut.Dao"/>
+    </mappers>
+</configuration>
+    

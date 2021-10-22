@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="jdbc.properties"/>
+
+    <!--druid连接池-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxActive" value="${jdbc.maxActive}"/>
+    </bean>
+
+    <!--SqlSessionFactory-->
+    <bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--Set注入 把数据库连接池赋值给dataSource属性-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--mybatis主配置文件的位置-->
+        <property name="configLocation" value="classpath:mybatis.xml"/>
+    </bean>
+
+    <!--dao对象-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+
+        <!--SqlSessionFactoryd对象-->
+        <property name="sqlSessionFactoryBeanName" value="SqlSessionFactory"/>
+
+        <!--指定dao所在的包
+            MapperScannerConfigurer会扫描包中的所有接口，为每个接口都执行一遍
+            getMapper()方法 获得dao对象
+        -->
+        <property name="basePackage" value="com.cdut.Dao"/>
+    </bean>
+
+    <!--service对象-->
+    <bean id="StudentService" class="com.cdut.Service.Impl.StudentServiceImpl">
+        <property name="dao" ref="studentDao"/>
+    </bean>
+    <bean id="myStudent" class="com.cdut.entity.Student">
+        <property name="id" value="1007"/>
+        <property name="name" value="清疏月"/>
+        <property name="age" value="18"/>
+        <property name="email" value="1587@183.com"/>
+    </bean>
+</beans>
